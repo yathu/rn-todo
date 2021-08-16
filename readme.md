@@ -6,6 +6,9 @@
 2. got to project in terminal and run the command `cd ios && pod install && cd ../`
 3. then run `react-native run-ios'
 
+
+##### Screen shots
+
 ![](https://raw.githubusercontent.com/yathu/rn-todo/master/ScreenShots/Screenshot%202021-08-17%20at%203.04.01%20AM.png)
 
 
