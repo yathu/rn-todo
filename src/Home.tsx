@@ -9,20 +9,38 @@ import { TodoListItem } from './components/TodoListItem';
 
 const Home: React.FC = () => {
 
-    const [todoItems, setTodoItems] = useState([{ text: "Freelance project", completed: true }, { text: "Assignment RN", completed: false }]);
+    const [todoItems, setTodoItems] = useState(
+        [
+            { text: "Freelance project", completed: true, category: 'Important', desc: 'project files', time: '1:30 PM - 1:00 PM' },
+            { text: "Assignment RN", completed: false, category: 'Planned', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt', time: '1:30 PM - 1:00 PM' }
+        ]);
+
+    const deleteTodoItem = (index: number) => {
+        let tempArr = [...todoItems];
+        tempArr.splice(index, 1);
+        setTodoItems(tempArr)
+    }
+
+    const completeTodoItem = (index: number) => {
+        let tempArr = [...todoItems];
+        tempArr[index].completed = true;
+        setTodoItems(tempArr)
+    }
 
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
+
             <FlatList
+
                 data={todoItems}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item, index }) => {
                     return (
                         <TodoListItem
                             todo={item}
-                            onPress={() => { }}
-                            onDelete={() => { }}
+                            onPress={() => { completeTodoItem(index) }}
+                            onDelete={() => { deleteTodoItem(index) }}
                         />
                     )
                 }}
@@ -30,5 +48,15 @@ const Home: React.FC = () => {
         </SafeAreaView>
     );
 };
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        padding: 15,
+    },
+
+});
 
 export default Home;
