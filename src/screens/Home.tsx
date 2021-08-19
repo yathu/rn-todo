@@ -24,6 +24,10 @@ const Home: React.FC = () => {
         },
         ]);
 
+    const addTodoItem = () => {
+        setTodoItems([...todoItems, { text: "Added task", completed: false, category: 'Important', desc: 'project files', time: '1:30 PM - 1:00 PM' }]);
+    }
+
     const deleteTodoItem = (completed: any, index: number) => {
         let tempArr = [...todoItems];
 
