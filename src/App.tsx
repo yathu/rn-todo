@@ -1,3 +1,4 @@
+import { PortalProvider } from '@gorhom/portal';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {
@@ -8,12 +9,15 @@ import Navigator from './Navigator';
 
 const App: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const Tab = createBottomTabNavigator();
 
   return (
     <>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Navigator />
+
+      <PortalProvider>
+        <Navigator />
+      </PortalProvider>
+
     </>
   );
 };

@@ -1,43 +1,70 @@
 import * as React from "react";
-import { View,Text,StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { useCallback, useMemo, useRef, useState } from "react";
 import BottomSheet from "@gorhom/bottom-sheet";
+import { Portal, PortalHost } from "@gorhom/portal";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const AddTask: React.FC = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  // variables
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
+  const snapPoints = useMemo(() => ['0%', '50%'], []);
 
-  // callbacks
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
   }, []);
 
+  const onAddButtonPress = () => {
+    bottomSheetRef?.current?.expand();
+  }
+
   return (
-    <View style={styles.container}>
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-      >
-        <View style={styles.contentContainer}>
-          <Text>Awesome 🎉</Text>
+    <>
+      <TouchableWithoutFeedback onPress={onAddButtonPress}>
+        <View style={styles.btnContainer}>
+          <View style={styles.centerBtn}>
+            <Icon name="plus" color='#fff' size={24} />
+          </View>
         </View>
-      </BottomSheet>
-    </View>
+
+      </TouchableWithoutFeedback>
+
+      <Portal>
+        <BottomSheet
+          ref={bottomSheetRef}
+          index={1}
+          snapPoints={snapPoints}
+          onChange={handleSheetChanges}
+        >
+          <View style={styles.contentContainer}>
+            <Text>Awesome 🎉</Text>
+          </View>
+        </BottomSheet>
+        <PortalHost name="custom_host" />
+      </Portal>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: 'grey',
-  },
   contentContainer: {
     flex: 1,
     alignItems: 'center',
   },
+  centerBtn: {
+    borderColor: '#fe92a1',
+    backgroundColor: '#fe92a1',
+    width: 40,
+    height: 40,
+    borderRadius: 15,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  }
 });
