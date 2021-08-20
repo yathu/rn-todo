@@ -6,7 +6,11 @@ import { Portal, PortalHost } from "@gorhom/portal";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Text, Input, Button } from "react-native-elements";
 
-export const AddTask: React.FC = () => {
+interface AddTaskProps {
+  onPress?: any,
+}
+
+export const AddTask: React.FC<AddTaskProps> = (props) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const snapPoints = useMemo(() => ["0%", "65%"], []);
@@ -59,6 +63,7 @@ export const AddTask: React.FC = () => {
               containerStyle={styles.submitBtnContainer}
               buttonStyle={styles.submitBtn}
               title="Done"
+              onPress={props.onPress}
             />
           </View>
         </BottomSheet>
